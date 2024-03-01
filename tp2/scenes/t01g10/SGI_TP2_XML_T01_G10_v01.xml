@@ -1,0 +1,1024 @@
+<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<yaf>
+    <globals background="0 0 0 1" ambient="0.1 0.1 0.1 1" />
+    <fog color="0.0 0.0 0.0 1.0" near="0.0" far="1000.0" />
+
+    <cameras initial="cam1" > 
+        <perspective id="cam1" 
+            angle="60" 
+            near="0.1" 
+            far="1000" 
+            location="15 15 15" 
+            target="0 0.0 0" /> 
+
+        <orthogonal id="cam2" 
+            near="0.1" 
+            far="1000" 
+            location="0 5 15" 
+            target="0.0 5 0.0" 
+            left="-5" 
+            right="5" 
+            bottom="-5" 
+            top="5" /> 
+    </cameras> 
+
+<skybox size="75 75 75q"
+    center="0 0 0"
+    emissive="1.0 1.0 1.0 1.0"
+    intensity="1.0"
+    front="scenes/t01g10/skyboxtextures/front.png"
+    back="scenes/t01g10/skyboxtextures/back.png"
+    up="scenes/t01g10/skyboxtextures/top.png"
+    down="scenes/t01g10/skyboxtextures/bottom.png"
+    left="scenes/t01g10/skyboxtextures/left.png"
+    right="scenes/t01g10/skyboxtextures/right.png" />
+
+
+    <textures>
+        <texture id="cherryLeaves" filepath="scenes/t01g10/textures/CherryBlossomLeafFull.png" />
+        <texture id="dirtSide" filepath="scenes/t01g10/textures/dirtBlockSide.png" />
+        <texture id="dirtBottom" filepath="scenes/t01g10/textures/dirtBlockDown.png" />
+        <texture id="dirtTop" filepath="scenes/t01g10/textures/dirtBlockTop.png" />
+        <texture id="cherryLogTop" filepath="scenes/t01g10/textures/cherry_log_top.png" />
+        <texture id="cherryLogSide" filepath="scenes/t01g10/textures/cherry_log.png" />
+    </textures>
+
+    <materials>
+
+        <material id="cherryLeavesMaterial"
+            color="0.7 0.7 0.7 1.0"
+            emissive="0.0 0.0 0.0 1.0"
+            specular="0.0 0.0 0.0 1.0"
+            shininess="30"
+            textureref="cherryLeaves"
+            texlength_s="1"
+            texlength_t="1"
+            twosided = "true"
+        />
+
+        <material id="dirtSideMaterial"
+            color="0.7 0.7 0.7 1.0"
+            emissive="0.0 0.0 0.0 1.0"
+            specular="0.0 0.0 0.0 1.0"
+            shininess="30"
+            textureref="dirtSide"
+            texlength_s="1"
+            texlength_t="1"
+            twosided = "true"
+        />
+
+        <material id="dirtTopMaterial"
+            color="0.7 0.7 0.7 1.0"
+            emissive="0.0 0.0 0.0 1.0"
+            specular="0.0 0.0 0.0 1.0"
+            shininess="30"
+            textureref="dirtTop"
+            texlength_s="1"
+            texlength_t="1"
+            twosided = "true"
+        />
+
+        <material id="cherryLogTopMaterial"
+            color="0.7 0.7 0.7 1.0"
+            emissive="0.0 0.0 0.0 1.0"
+            specular="0.0 0.0 0.0 1.0"
+            shininess="30"
+            textureref="cherryLogTop"
+            texlength_s="1"
+            texlength_t="1"
+            twosided = "true"
+        />
+
+        <material id="cherryLogSideMaterial"
+            color="0.7 0.7 0.7 1.0"
+            emissive="0.0 0.0 0.0 1.0"
+            specular="0.0 0.0 0.0 1.0"
+            shininess="30"
+            textureref="cherryLogSide"
+            texlength_s="1"
+            texlength_t="1"
+            twosided = "true"
+        />
+
+        <material id="dirtBottomMaterial"
+            color="0.7 0.7 0.7 1.0"
+            emissive="0.0 0.0 0.0 1.0"
+            specular="0.0 0.0 0.0 1.0"
+            shininess="30"
+            textureref="dirtBottom"
+            texlength_s="1"
+            texlength_t="1"
+            twosided = "true"
+        />
+
+        <material id="leavesPinkMaterial"
+            color="0.9 0.5 0.7 1.0"
+            emissive="0.0 0.0 0.0 1.0"
+            specular="0.4 0.4 0.4 1.0"
+            shininess="30"
+            twosided = "true"
+        />
+
+    </materials>
+
+    <graph rootid="scene">
+        <node id="scene">
+            <children>
+                <noderef id="tree" />
+                <noderef id="ground" />
+                <noderef id="petals" />
+
+                <pointlight id="pinkPointlight" enabled="true" 
+                    color="0.9 0.3 0.5 1"
+                    intensity="50.0"
+                    distance="150"
+                    castshadow="true"
+                    position="15 15 0"
+                    shadowmapsize="8192"
+                />
+
+                <directionallight id="commonLight" enabled="true" 
+                    color="0.7 0.7 0.7 1"
+                    intensity="2"
+                    castshadow="false"
+                    position="0 20 0"
+                />
+
+            </children>
+        </node>
+
+        <node id="tree">
+            <transforms>
+                <translate value3="0.0 0.5 0.0" />
+            </transforms>
+            <children>
+                <noderef id="trunk"/>
+                <noderef id="leaves"/>
+            </children>
+        </node>
+
+        <node id="trunk">
+            <children>
+                <noderef id="logBlock1" />
+                <noderef id="logBlock2" />
+                <noderef id="logBlock3" />
+                <noderef id="logBlock4" />
+                <noderef id="logBlock5" />
+            </children>
+        </node>
+
+        <node id="logBlock1">
+            <children>
+                <noderef id="unitCubeLogSides" />
+                <noderef id="unitCubeLogTopBottom" />
+            </children>
+        </node>
+
+        <node id="logBlock2">
+            <transforms>
+                <translate value3="0.0 1.0 0.0" />
+            </transforms>
+            <children>
+                <noderef id="unitCubeLogSides" />
+                <noderef id="unitCubeLogTopBottom" />
+            </children>
+        </node>
+
+        <node id="logBlock3">
+            <transforms>
+                <translate value3="0.0 2.0 0.0" />
+            </transforms>
+            <children>
+                <noderef id="unitCubeLogSides" />
+                <noderef id="unitCubeLogTopBottom" />
+            </children>
+        </node>
+
+        <node id="logBlock4">
+            <transforms>
+                <translate value3="0.0 3.0 0.0" />
+            </transforms>
+            <children>
+                <noderef id="unitCubeLogSides" />
+                <noderef id="unitCubeLogTopBottom" />
+            </children>
+        </node>
+
+        <node id="logBlock5">
+            <transforms>
+                <translate value3="0.0 4.0 0.0" />
+            </transforms>
+            <children>
+                <noderef id="unitCubeLogSides" />
+                <noderef id="unitCubeLogTopBottom" />
+            </children>
+        </node>
+
+        <node id="leaves">
+            <transforms>
+				<translate value3="0 4 0" />
+            </transforms> 
+            <materialref id="cherryLeavesMaterial" />
+            <children>
+                <noderef id="unitBlock2x3_1" />
+                <noderef id="unitBlock2x3_2" />
+                <noderef id="unitBlock2x3_3" />
+                <noderef id="unitBlock2x3_4" />
+                <noderef id="unitBlock2x3_5" />
+                <noderef id="unitBlock2x3_6" />
+                <noderef id="leavesTop" />
+                <noderef id="leavesMid" />
+            </children>
+        </node>
+
+        <node id="unitBlock2x3_1">
+            <transforms>
+				<translate value3="0 0 1" />
+            </transforms> 
+            <children>
+                <noderef id="unitBlock2x3"/>
+            </children>
+        </node>
+
+        <node id="unitBlock2x3_2">
+            <transforms>
+				<translate value3="0 0 2" />
+            </transforms> 
+            <children>
+                <noderef id="unitBlock2x3"/>
+            </children>
+        </node>
+
+        <node id="unitBlock2x3_3">
+            <transforms>
+				<translate value3="0 0 -1" />
+            </transforms> 
+            <children>
+                <noderef id="unitBlock2x3"/>
+            </children>
+        </node>
+
+        <node id="unitBlock2x3_4">
+            <transforms>
+				<translate value3="0 0 -2" />
+            </transforms> 
+            <children>
+                <noderef id="unitBlock2x3"/>
+            </children>
+        </node>
+
+        <node id="unitBlock2x3_5">
+            <transforms>
+                <rotate value3="0 90 0" />
+				<translate value3="2 0 0" />
+            </transforms> 
+            <children>
+                <noderef id="unitBlock2x3"/>
+            </children>
+        </node>
+
+        <node id="unitBlock2x3_6">
+            <transforms>
+                <rotate value3="0 90 0" />
+				<translate value3="-2 0 0" />
+            </transforms> 
+            <children>
+                <noderef id="unitBlock2x3"/>
+            </children>
+        </node>
+
+        <node id="leavesTop">
+            <transforms>
+				<translate value3="0 2 0" />
+            </transforms> 
+            <children>
+                <noderef id="unitBlock2x3"/>
+                <noderef id="unitBlockTpiece1"/>
+                <noderef id="unitBlockTpiece2"/>
+            </children>
+        </node>
+
+        <node id="unitBlockTpiece1">
+            <transforms>
+				<translate value3="0 0 1" />
+            </transforms> 
+            <children>
+                <noderef id="unitBlockTpiece"/>
+            </children>
+        </node>
+
+        <node id="unitBlockTpiece2">
+            <transforms>
+				<translate value3="0 0 -1" />
+            </transforms> 
+            <children>
+                <noderef id="unitBlockTpiece"/>
+            </children>
+        </node>
+
+        <node id="unitBlock2x3">
+            <children>
+                <noderef id="unitBlock1" />
+                <noderef id="unitBlock2" />
+                <noderef id="unitBlock3" />
+                <noderef id="unitBlock4" />
+                <noderef id="unitBlock5" />
+                <noderef id="unitBlock6" />
+            </children>
+        </node>
+
+        <node id="unitBlockTpiece">
+            <children>
+                <noderef id="unitBlock1" />
+                <noderef id="unitBlock2" />
+                <noderef id="unitBlock3" />
+                <noderef id="unitBlock5" />
+            </children>
+        </node>
+
+        <node id="leavesMid">
+            <children>
+                <noderef id="unitBlock2" />
+                <noderef id="unitBlock3" />
+                <noderef id="unitBlock4" />
+                <noderef id="unitBlock5" />
+                <noderef id="unitBlock6" />
+            </children>
+        </node>
+
+        <node id="unitBlock1">
+            <children>
+                <noderef id="unitCube" />
+            </children>
+        </node>
+
+        <node id="unitBlock2">
+            <transforms>
+				<translate value3="0 1.0 0" />
+            </transforms> 
+            <children>
+                <noderef id="unitCube" />
+            </children>
+        </node>
+
+        <node id="unitBlock3">
+            <transforms>
+				<translate value3="1.0 0 0" />
+            </transforms> 
+            <children>
+                <noderef id="unitCube" />
+            </children>
+        </node>
+
+        <node id="unitBlock4">
+            <transforms>
+				<translate value3="1.0 1.0 0" />
+            </transforms> 
+            <children>
+                <noderef id="unitCube" />
+            </children>
+        </node>
+
+        <node id="unitBlock5">
+            <transforms>
+				<translate value3="-1.0 0 0" />
+            </transforms> 
+            <children>
+                <noderef id="unitCube" />
+            </children>
+        </node>
+
+        <node id="unitBlock6">
+            <transforms>
+				<translate value3="-1.0 1.0 0" />
+            </transforms> 
+            <children>
+                <noderef id="unitCube" />
+            </children>
+        </node>
+
+        <node id="ground">
+            <transforms>
+				<translate value3="0 -0.5 0" />
+            </transforms> 
+            <children>
+                <noderef id="layer1" />
+                <noderef id="layer2" />
+                <noderef id="layer3" />
+            </children>
+        </node>
+
+        <node id="layer1">
+            <children>
+                <noderef id="grass7x1" />
+                <noderef id="grass7x3_1" />
+                <noderef id="grass7x3_2" />
+            </children>
+        </node>
+
+        <node id="layer2">
+            <transforms>
+				<translate value3="0 -1 0" />
+            </transforms> 
+            <materialref id="dirtBottomMaterial" />
+            <children>
+                <noderef id="unitBlock7x1" />
+                <noderef id="unitBlock7x3_1" />
+                <noderef id="unitBlock7x3_2" />
+            </children>
+        </node>
+
+        <node id="layer3">
+            <transforms>
+				<translate value3="0 -1 0" />
+            </transforms> 
+            <children>
+                <noderef id="layer2" />
+            </children>
+        </node>
+
+        <node id="unitBlock7x3_1">
+            <children>
+                <noderef id="unitBlock7x1_1" />
+                <noderef id="unitBlock7x1_2" />
+                <noderef id="unitBlock7x1_3" />
+            </children>
+        </node>
+        <node id="unitBlock7x3_2">
+            <transforms>
+				<translate value3="0 0 -4" />
+            </transforms> 
+            <children>
+                <noderef id="unitBlock7x3_1" />
+            </children>
+        </node>
+
+        <node id="unitBlock7x1_1">
+            <transforms>
+				<translate value3="0 0 1" />
+            </transforms> 
+            <children>
+                <noderef id="unitBlock7x1" />
+            </children>
+        </node>
+        <node id="unitBlock7x1_2">
+            <transforms>
+				<translate value3="0 0 2" />
+            </transforms> 
+            <children>
+                <noderef id="unitBlock7x1" />
+            </children>
+        </node>
+        <node id="unitBlock7x1_3">
+            <transforms>
+				<translate value3="0 0 3" />
+            </transforms> 
+            <children>
+                <noderef id="unitBlock7x1" />
+            </children>
+        </node>
+
+        <node id="unitBlock7x1">
+            <children>
+                <noderef id="unitCube" />
+                <noderef id="unitCube3x1_1" />
+                <noderef id="unitCube3x1_2" />
+            </children>
+        </node>
+
+        <node id="unitCube3x1_1">
+            <transforms>
+				<translate value3="2 0 0" />
+            </transforms> 
+            <children>
+                <noderef id="unitCube3x1" />
+            </children>
+        </node>
+
+        <node id="unitCube3x1_2">
+            <transforms>
+				<translate value3="-2 0 0" />
+            </transforms> 
+            <children>
+                <noderef id="unitCube3x1" />
+            </children>
+        </node>
+
+        <node id="unitCube3x1">
+            <children>
+                <noderef id="unitBlock1" />
+                <noderef id="unitBlock3" />
+                <noderef id="unitBlock5" />
+            </children>
+        </node>
+
+        
+
+        <node id="grass7x3_1">
+            <children>
+                <noderef id="grass7x1_1" />
+                <noderef id="grass7x1_2" />
+                <noderef id="grass7x1_3" />
+            </children>
+        </node>
+
+        <node id="grass7x3_2">
+            <transforms>
+				<translate value3="0 0 -4" />
+            </transforms> 
+            <children>
+                <noderef id="grass7x3_1" />
+            </children>
+        </node>
+
+        <node id="grass7x1">
+            <children>
+                <noderef id="unitGrassCube" />
+                <noderef id="grass3x1_1" />
+                <noderef id="grass3x1_2" />
+            </children>
+        </node>
+
+        <node id="grass7x1_1">
+            <transforms>
+				<translate value3="0 0 1" />
+            </transforms> 
+            <children>
+                <noderef id="grass7x1" />
+            </children>
+        </node>
+
+        <node id="grass7x1_2">
+            <transforms>
+				<translate value3="0 0 2" />
+            </transforms> 
+            <children>
+                <noderef id="grass7x1" />
+            </children>
+        </node>
+
+        <node id="grass7x1_3">
+            <transforms>
+				<translate value3="0 0 3" />
+            </transforms> 
+            <children>
+                <noderef id="grass7x1" />
+            </children>
+        </node>
+
+        <node id="grass3x1_1">
+            <children>
+                <noderef id="grassCube_1" />
+                <noderef id="grassCube_2" />
+                <noderef id="grassCube_3" />
+            </children>
+        </node>
+
+        <node id="grass3x1_2">
+            <transforms>
+				<translate value3="-4 0 0" />
+            </transforms> 
+            <children>
+                <noderef id="grass3x1_1" />
+            </children>
+        </node>
+
+        <node id="grassCube_1">
+            <transforms>
+				<translate value3="1 0 0" />
+            </transforms> 
+            <children>
+                <noderef id="unitGrassCube" />
+            </children>
+        </node>
+
+        <node id="grassCube_2">
+            <transforms>
+				<translate value3="2 0 0" />
+            </transforms> 
+            <children>
+                <noderef id="unitGrassCube" />
+            </children>
+        </node>
+        
+        <node id="grassCube_3">
+            <transforms>
+				<translate value3="3 0 0" />
+            </transforms> 
+            <children>
+                <noderef id="unitGrassCube" />
+            </children>
+        </node>
+
+        <node id="unitCube">
+            <children>            
+				<!-- Back -->
+                <noderef id="rectangle1" /> 
+				<!-- Front -->
+				<noderef id="rectangle2" /> 
+				<!-- Left -->				
+				<noderef id="rectangle3" />
+				 <!-- Right -->
+				<noderef id="rectangle4" />
+				<!-- Bottom -->
+				<noderef id="rectangle5" />
+				<!-- Top -->
+				<noderef id="rectangle6" />
+            </children> 
+        </node>
+
+        <node id="unitCubeLogSides">
+            <materialref id="cherryLogSideMaterial" />
+            <children>            
+				<!-- Back -->
+                <noderef id="rectangle1" /> 
+				<!-- Front -->
+				<noderef id="rectangle2" /> 
+				<!-- Left -->				
+				<noderef id="rectangle3" />
+				 <!-- Right -->
+				<noderef id="rectangle4" />
+            </children> 
+        </node>
+
+        <node id="unitCubeLogTopBottom">
+            <materialref id="cherryLogTopMaterial" />
+            <children>            
+				<!-- Bottom -->
+				<noderef id="rectangle5" />
+				<!-- Top -->
+				<noderef id="rectangle6" />
+            </children> 
+        </node>
+
+        <node id="unitGrassCube">
+            <children>            
+                <noderef id="grassCubeTop" /> 
+                <noderef id="grassCubeSides" /> 
+                <noderef id="grassCubeBottom" /> 
+            </children> 
+        </node>
+
+        <node id="grassCubeSides">
+            <materialref id="dirtSideMaterial" />
+            <children>            
+				<!-- Back -->
+                <noderef id="rectangle1" /> 
+				<!-- Front -->
+				<noderef id="rectangle2" /> 
+				<!-- Left -->				
+				<noderef id="rectangle3" />
+				 <!-- Right -->
+				<noderef id="rectangle4" />
+            </children> 
+        </node>
+
+        <node id="grassCubeTop">
+            <materialref id="dirtTopMaterial" />
+            <children>            
+				<!-- Top -->
+				<noderef id="rectangle6" />
+            </children> 
+        </node>
+
+        <node id="grassCubeBottom">
+            <materialref id="dirtBottomMaterial" />
+            <children>            
+				<!-- Bottom -->
+				<noderef id="rectangle5" />
+            </children> 
+        </node>
+
+        <node id="rectangle1"> 
+
+            <transforms>
+				<translate value3="0 0 -0.5" />
+				<rotate value3="0 180.0 0.0" />
+            </transforms> 
+
+            <children>   
+                <primitive>          
+                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
+                </primitive> 
+            </children> 
+        </node>
+		
+		<node id="rectangle2"> 
+
+            <transforms>
+				<translate value3="0 0 0.5" />
+            </transforms> 
+
+            <children>             
+                <primitive>
+                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
+                </primitive>
+            </children> 
+        </node>
+		
+		<node id="rectangle3"> 
+
+            <transforms>
+				<translate value3="-0.5 0 0" />
+				<rotate value3="0.0 -90.0 0.0" />
+            </transforms> 
+
+            <children>             
+                <primitive>
+                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
+                </primitive>
+            </children> 
+        </node>
+		
+		<node id="rectangle4"> 
+            <transforms>
+				<translate value3="0.5 0 0" />
+				<rotate value3="0.0 90.0 0.0" />
+            </transforms> 
+
+            <children>             
+                <primitive>
+                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="rectangle5"> 
+
+            <transforms>
+				<translate value3="0 -0.5 0" />
+				<rotate value3="90 0.0 0.0" />
+            </transforms> 
+
+            <children>   
+                <primitive>          
+                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
+                </primitive>
+            </children> 
+        </node>
+		
+		<node id="rectangle6"> 
+
+            <transforms>
+				<translate value3="0 0.5 0" />
+				<rotate value3="-90 0.0 0.0" />
+            </transforms> 
+
+            <children>             
+                <primitive>
+                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
+                </primitive>
+            </children> 
+        </node>  
+
+        <node id="petals">
+            <materialref id="leavesPinkMaterial" />
+            <children>
+                <noderef id="petal1" />
+                <noderef id="petal2" />
+                <noderef id="petal3" />
+                <noderef id="petal4" />
+                <noderef id="petal5" />
+                <noderef id="petal6" />
+                <noderef id="petal7" />
+                <noderef id="petal8" />
+                <noderef id="petal9" />
+                <noderef id="petal10" />
+                <noderef id="petal11" />
+                <noderef id="petal12" />
+                <noderef id="petal13" />
+                <noderef id="petal14" />
+                <noderef id="petal15" />
+                <noderef id="petal16" />
+                <noderef id="petal17" />
+                <noderef id="petal18" />
+                <noderef id="petal19" />
+                <noderef id="petal20" />
+            </children>
+        </node>    
+
+        <node id="petal1">
+            <transforms>
+                <translate value3="1 1 1" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>   
+
+        <node id="petal2">
+            <transforms>
+                <rotate value3= "30 20 5"/>
+                <translate value3="1.5 1.2 2" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal3">
+            <transforms>
+                <rotate value3= "30 90 5"/>
+                <translate value3="2.3 2.5 1" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal4">
+            <transforms>
+                <rotate value3= "60 90 15"/>
+                <translate value3="2.2 2 1.2" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal5">
+            <transforms>
+                <rotate value3= "60 40 15"/>
+                <translate value3="2.2 2.6 -1.4" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal6">
+            <transforms>
+                <rotate value3= "30 40 15"/>
+                <translate value3="1.1 3 -2.1" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal7">
+            <transforms>
+                <rotate value3= "30 120 25"/>
+                <translate value3="1.7 1.1 -1.6" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal8">
+            <transforms>
+                <rotate value3= "30 40 60"/>
+                <translate value3="-1.3 3.2 -1.1" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal9">
+            <transforms>
+                <rotate value3= "120 40 15"/>
+                <translate value3="-1.7 2.9 -1.7" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal10">
+            <transforms>
+                <rotate value3= "39 95 28"/>
+                <translate value3="-2.4 3.5 1.3" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal11">
+            <transforms>
+                <translate value3="-1 1.2 -1.3" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>   
+
+        <node id="petal12">
+            <transforms>
+                <rotate value3= "30 27 54"/>
+                <translate value3="-1.5 3.7 -2.1" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal13">
+            <transforms>
+                <rotate value3= "30 100 45"/>
+                <translate value3="2.3 2.6 -1" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal14">
+            <transforms>
+                <rotate value3= "67 90 45"/>
+                <translate value3="-2.4 2.7 -1.2" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal15">
+            <transforms>
+                <rotate value3= "69 42 1"/>
+                <translate value3="-1.8 3.4 2.4" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal16">
+            <transforms>
+                <rotate value3= "45 45 45"/>
+                <translate value3="-1.5 3.1 1.3" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal17">
+            <transforms>
+                <rotate value3= "60 120 130"/>
+                <translate value3="-1.5 1.1 -2.3" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal18">
+            <transforms>
+                <rotate value3= "56 40 38"/>
+                <translate value3="1.4 3.3 2.3" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal19">
+            <transforms>
+                <rotate value3= "125 40 90"/>
+                <translate value3="-1.9 1.9 2.0" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node>  
+
+        <node id="petal20">
+            <transforms>
+                <rotate value3= "55 78 93"/>
+                <translate value3="-1.25 3 1.33" />
+            </transforms>
+            <children>
+                <noderef id="nurbPetal" />
+            </children>
+        </node> 
+
+        <node id="nurbPetal"> 
+            <transforms>
+                <scale value3="0.2 0.2 0.2" />
+            </transforms>
+            <children>   
+                <primitive>          
+                    <nurbs degree_u="2" degree_v="3" parts_u="32" parts_v="32">
+                        <controlpoint xx="0.0" yy="-0.05" zz="0.0" />
+                        <controlpoint xx="0.0" yy="-0.05" zz="0.1" />
+                        <controlpoint xx="0.0" yy="0.05" zz="0.1" />
+                        <controlpoint xx="0.0" yy="0.05" zz="0.0" />
+
+                        <controlpoint xx="0.5" yy="-0.6" zz="0.0" />
+                        <controlpoint xx="0.5" yy="-0.6" zz="0.4" />
+                        <controlpoint xx="0.5" yy="0.6" zz="0.4" />
+                        <controlpoint xx="0.5" yy="0.6" zz="0.0" />
+
+                        <controlpoint xx="1.0" yy="-0.05" zz="0.0" />
+                        <controlpoint xx="1.0" yy="-0.05" zz="0.05" />
+                        <controlpoint xx="1.0" yy="0.05" zz="0.05" />
+                        <controlpoint xx="1.0" yy="0.05" zz="0.0" />
+                    </nurbs>
+                </primitive>
+            </children> 
+        </node> 
+    </graph>
+</yaf>
